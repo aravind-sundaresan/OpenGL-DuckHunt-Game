@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "definations.h"
 #include "game.h"
 #include "fonts.h"
@@ -48,7 +49,7 @@ void gameScreen() {
 
     drawBackground();
 
-    drawDucks();
+//    drawDucks();
 
     if (debugInfoVisible)
         showDebugInfo();
