@@ -9,13 +9,13 @@ class Duck {
 public:
     vec2f pos;
     GLfloat slope;
-    GLfloat initYPos;
-
+    bool flewAway;
     bool alive;
+    bool onGround;
 
     Duck();
     void draw();
-    void updatePos();
+    void updatePos(float gameSpeed);
     bool isHit(int x, int y);
 };
 

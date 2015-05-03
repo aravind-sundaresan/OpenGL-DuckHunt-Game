@@ -3,6 +3,7 @@
 #include "definations.h"
 #include "callbackfunctions.h"
 #include "game.h"
+#include <time.h>
 
 using namespace std;
 
@@ -35,7 +36,10 @@ int main(int argc, char **argv) {
 
 void init() {
 
+    time_t t;
+    srand((unsigned int) time(&t));
+
     glEnable(GL_DEPTH_TEST);
     glClearColor(0, 0, 0, 0);
-    initGame();
+    //initGame();
 }

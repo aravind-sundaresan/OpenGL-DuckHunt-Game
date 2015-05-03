@@ -15,7 +15,7 @@
 #define CURSOR_YMAX     712
 #define GROUND_LEVEL    200
 
-#define INITIAL_DUCK_CNT    1
+#define INITIAL_DUCK_CNT    2
 #define MAX_DUCK_CNT        20
 
 #define DUCK_XSIZE      30
@@ -28,9 +28,10 @@ typedef enum {
 
 typedef enum {
     GAME_RESTART,
+    GAME_OVER,
     ROUND_INIT,
     ROUND_ACTIVE,
-    ROUND_DONE
+    ROUND_OVER
 } GameState;
 
 typedef struct {
