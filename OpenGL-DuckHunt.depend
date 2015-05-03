@@ -1,18 +1,18 @@
 # depslib dependency file v1.0
-1430636528 source:/home/arun/Documents/Projects/CodeBlocks/OpenGL-DuckHunt/callbackfunctions.cpp
+1430638710 source:/home/arun/Documents/Projects/CodeBlocks/OpenGL-DuckHunt/callbackfunctions.cpp
 	<GL/freeglut.h>
 	"callbackfunctions.h"
 	"game.h"
 
 1430636040 /home/arun/Documents/Projects/CodeBlocks/OpenGL-DuckHunt/callbackfunctions.h
 
-1430636557 /home/arun/Documents/Projects/CodeBlocks/OpenGL-DuckHunt/game.h
+1430637944 /home/arun/Documents/Projects/CodeBlocks/OpenGL-DuckHunt/game.h
 	"definations.h"
 
 1430637454 /home/arun/Documents/Projects/CodeBlocks/OpenGL-DuckHunt/definations.h
 	<GL/gl.h>
 
-1430634588 source:/home/arun/Documents/Projects/CodeBlocks/OpenGL-DuckHunt/fonts.cpp
+1430638693 source:/home/arun/Documents/Projects/CodeBlocks/OpenGL-DuckHunt/fonts.cpp
 	<GL/freeglut.h>
 	"fonts.h"
 
@@ -20,7 +20,7 @@
 	<iostream>
 	"definations.h"
 
-1430637169 source:/home/arun/Documents/Projects/CodeBlocks/OpenGL-DuckHunt/game.cpp
+1430638640 source:/home/arun/Documents/Projects/CodeBlocks/OpenGL-DuckHunt/game.cpp
 	"definations.h"
 	"game.h"
 	"fonts.h"

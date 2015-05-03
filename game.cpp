@@ -40,6 +40,26 @@ void gameScreen() {
 
 void drawBackground() {
 
+    float groundSize = 0.3;
+    glPushMatrix();
+    glPushAttrib(GL_CURRENT_BIT);
+    glBegin(GL_QUADS);
+        // Ground
+        glColor3f(0, 0.5, 0);
+        glVertex3f(0, 0, -0.5);
+        glVertex3f(WIDTH, 0, -0.5);
+        glVertex3f(WIDTH, HEIGHT * groundSize, -0.5);
+        glVertex3f(0, HEIGHT * groundSize, -0.5);
+        // Sky
+        glColor3f(0.43 , 0.77, 0.86);
+        glVertex3f(WIDTH, HEIGHT * groundSize, -0.5);
+        glVertex3f(0, HEIGHT * groundSize, -0.5);
+        glVertex3f(0, HEIGHT, -0.5);
+        glVertex3f(WIDTH, HEIGHT, -0.5);
+
+    glEnd();
+    glPopAttrib();
+    glPopMatrix();
 }
 
 void showInstructions() {
@@ -60,7 +80,7 @@ void showDebugInfo() {
 
     debugText = ss.str();
 
-    drawBitmapText(debugText.c_str(), 10, HEIGHT - 500, 0);
+    drawBitmapText(debugText.c_str(), 10, HEIGHT - 450, 0);
 }
 
 void updateCursorCoords(int x, int y) {
