@@ -10,6 +10,7 @@ AppState appState = START_SCREEN;
 bool instructionMenuVisible = true;
 bool debugInfoVisible = false;
 int cursorX, cursorY;
+bool isShooting = false;
 
 int duckCount = INITIAL_DUCK_CNT;
 float duckInitYPos[MAX_DUCK_CNT];
@@ -84,9 +85,19 @@ void drawBackground() {
 }
 
 void drawCursor() {
+    if (isShooting) {
+        glBegin(GL_QUADS);
+            glColor3f(0.7, 0, 0);
+            glVertex2f (cursorX - 4.5, cursorY - 4);
+            glVertex2f (cursorX - 4.5, cursorY + 4);
+            glVertex2f (cursorX + 4, cursorY + 4);
+            glVertex2f (cursorX + 4, cursorY - 4);
+            glVertex2f (cursorX - 4, cursorY - 4);
+		glEnd();
+    }
     glBegin(GL_LINE_LOOP);
 		glColor3f(1, 1, 1);
-		glVertex2f (cursorX - 5, cursorY - 5);
+    	glVertex2f (cursorX - 5, cursorY - 5);
         glVertex2f (cursorX - 5, cursorY + 5);
         glVertex2f (cursorX + 5, cursorY + 5);
         glVertex2f (cursorX + 5, cursorY - 5);

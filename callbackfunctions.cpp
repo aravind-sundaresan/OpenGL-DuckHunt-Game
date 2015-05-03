@@ -64,7 +64,12 @@ void specialKeys(int key, int x, int y) {
 
 
 void mouseClick(int button, int state, int x, int y) {
-
+    if (button == GLUT_LEFT_BUTTON) {
+        if (state == GLUT_DOWN)
+            isShooting = true;
+        else
+            isShooting = false;
+    }
 }
 
 void setCursor(int x, int y) {

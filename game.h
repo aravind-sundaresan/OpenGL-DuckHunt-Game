@@ -6,6 +6,7 @@
 extern AppState appState;
 extern bool instructionMenuVisible;
 extern bool debugInfoVisible;
+extern bool isShooting;
 
 void initGame();
 void startScreen();
