@@ -1,11 +1,17 @@
 #include "definations.h"
 #include "game.h"
 #include "fonts.h"
+#include <sstream>
+
+using namespace std;
 
 AppState appState = START_SCREEN;
 bool instructionMenuVisible = true;
+bool debugInfoVisible = false;
+int cursorX, cursorY;
 
 void showInstructions();
+void showDebugInfo();
 
 void startScreen() {
 
@@ -21,12 +27,35 @@ void startScreen() {
 }
 
 void simulationScreen() {
+    if (debugInfoVisible)
+        showDebugInfo();
+
     if (instructionMenuVisible)
         showInstructions();
 }
 
 void showInstructions() {
     drawBitmapText("Instructions:\n"
-                           "  q - Quit simulation\n"
-                           "  i - Toggle Instructions", WIDTH/2, HEIGHT/2, 0);
+        "  q - Quit simulation\n"
+        "  i - Toggle Instructions\n"
+        "  d - Toggle Debugging Information", 10, HEIGHT-50, 0);
+}
+
+void showDebugInfo() {
+
+    string debugText;
+
+    stringstream ss;
+    ss << "Debugging Info: " << endl;
+    ss << "  Cursor X: " << cursorX << endl;
+    ss << "  Cursor Y: " << cursorY << endl;
+
+    debugText = ss.str();
+
+    drawBitmapText(debugText.c_str(), 10, HEIGHT - 500, 0);
+}
+
+void updateCursorCoords(int x, int y) {
+    cursorX = x;
+    cursorY = CURSOR_YMAX-y;
 }

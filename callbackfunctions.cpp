@@ -37,13 +37,18 @@ void normalKeys(unsigned char key, int x, int y) {
             if (appState == START_SCREEN)
                 exit(EXIT_SUCCESS);
         case 13:    // Enter key
+            glutSetCursor(GLUT_CURSOR_NONE);
             appState = GAME_SCREEN;
             break;
         case 'q':
+            glutSetCursor(GLUT_CURSOR_INHERIT);
             appState = START_SCREEN;
             break;
         case 'i':
             instructionMenuVisible = !instructionMenuVisible;
+            break;
+        case 'd':
+            debugInfoVisible = !debugInfoVisible;
             break;
         default:
             break;
@@ -55,4 +60,13 @@ void specialKeys(int key, int x, int y) {
         default:
             break;
     }
+}
+
+
+void mouseClick(int button, int state, int x, int y) {
+
+}
+
+void setCursor(int x, int y) {
+    updateCursorCoords(x, y);
 }

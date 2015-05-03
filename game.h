@@ -5,9 +5,11 @@
 
 extern AppState appState;
 extern bool instructionMenuVisible;
+extern bool debugInfoVisible;
 
 void startScreen();
 void simulationScreen();
+void updateCursorCoords(int x, int y);
 
 #endif //GAME_H
 

@@ -15,11 +15,15 @@ int main(int argc, char **argv) {
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("OpenGL-DuckHunt");
 
+    // Register all callback functions
     glutDisplayFunc(display);
     glutIdleFunc(idle);
     glutReshapeFunc(reshape);
     glutKeyboardFunc(normalKeys);
     glutSpecialFunc(specialKeys);
+    glutMouseFunc(mouseClick);
+    glutPassiveMotionFunc(setCursor);
+    glutMotionFunc(setCursor);
 
     init();
 
