@@ -5,7 +5,7 @@
 
 // Window constants
 #define WIDTH           1366
-#define HEIGHT          768
+#define HEIGHT          712
 #define XMIN            0
 #define XMAX            WIDTH
 #define YMIN            0

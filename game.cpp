@@ -19,6 +19,7 @@ float duckSlope[MAX_DUCK_CNT];
 void showInstructions();
 void showDebugInfo();
 void drawBackground();
+void drawCursor();
 
 void initGame() {
     for (int i = 0; i < MAX_DUCK_CNT; i++) {
@@ -48,7 +49,7 @@ void startScreen() {
 void gameScreen() {
 
     drawBackground();
-
+    drawCursor();
 //    drawDucks();
 
     if (debugInfoVisible)
@@ -80,6 +81,29 @@ void drawBackground() {
     glEnd();
     glPopAttrib();
     glPopMatrix();
+}
+
+void drawCursor() {
+    glBegin(GL_LINE_LOOP);
+		glColor3f(1, 1, 1);
+		glVertex2f (cursorX - 5, cursorY - 5);
+        glVertex2f (cursorX - 5, cursorY + 5);
+        glVertex2f (cursorX + 5, cursorY + 5);
+        glVertex2f (cursorX + 5, cursorY - 5);
+		glVertex2f (cursorX - 5, cursorY - 5);
+	glEnd();
+
+	glBegin(GL_LINES);
+		glColor3f(1, 1, 1);
+		glVertex2f (cursorX - 10, cursorY);
+        glVertex2f (cursorX + 10, cursorY);
+	glEnd();
+
+	glBegin(GL_LINES);
+		glColor3f(1, 1, 1);
+        glVertex2f (cursorX, cursorY - 10);
+        glVertex2f (cursorX, cursorY + 10);
+	glEnd();
 }
 
 void showInstructions() {
