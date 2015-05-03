@@ -3,35 +3,40 @@
 #include "game.h"
 #include "fonts.h"
 #include <sstream>
+#include <vector>
+#include <algorithm>
+#include "duck.h"
+#include <GL/freeglut.h>
 
 using namespace std;
 
 AppState appState = START_SCREEN;
+GameState gameState = ROUND_INIT;
 bool instructionMenuVisible = true;
 bool debugInfoVisible = false;
 int cursorX, cursorY;
 bool isShooting = false;
+bool notifyMsg = false;
+int score;
+string msg;
 
-int duckCount = INITIAL_DUCK_CNT;
-float duckInitYPos[MAX_DUCK_CNT];
-vec2f duckPos[MAX_DUCK_CNT];
-float duckSlope[MAX_DUCK_CNT];
+
+vector<int> duckIndices;
+
+Duck ducks[MAX_DUCK_CNT];
 
 void showInstructions();
 void showDebugInfo();
 void drawBackground();
 void drawCursor();
+void drawDucks();
+void chooseRandomDucks(int n);
 
 void initGame() {
-    for (int i = 0; i < MAX_DUCK_CNT; i++) {
-        // Generate random slope
-        duckSlope[i] =  ((float) rand() / (RAND_MAX));
-
-        // Random initial y pos
-        duckInitYPos[i] = (rand() % 300) + 100;
-        duckPos[i].x = 0;
-        duckPos[i].y = duckInitYPos[i];
-    }
+    score = 0;
+    notifyMsg = false;
+    glutTimerFunc(2000, notifyGame, 0);
+    chooseRandomDucks(INITIAL_DUCK_CNT);
 }
 
 void startScreen() {
@@ -51,7 +56,16 @@ void gameScreen() {
 
     drawBackground();
     drawCursor();
-//    drawDucks();
+    drawDucks();
+
+    stringstream ss;
+    ss << "Ducks killed: " << score;
+    string scoreStr = ss.str();
+    drawStrokeText(scoreStr.c_str(), WIDTH/3, 3*HEIGHT/4, 0, FONT_SIZE_NORMAL);
+
+    if (notifyMsg) {
+        drawStrokeText(msg.c_str(), WIDTH/3, HEIGHT/2.5, 0, FONT_SIZE_NORMAL);
+    }
 
     if (debugInfoVisible)
         showDebugInfo();
@@ -82,6 +96,57 @@ void drawBackground() {
     glEnd();
     glPopAttrib();
     glPopMatrix();
+}
+
+void updateGameState() {
+    switch (gameState) {
+        case GAME_RESTART:
+            notifyMsg = true;
+            msg = "Restarting...";
+            gameState = ROUND_INIT;
+            initGame();
+            break;
+
+        case ROUND_INIT:
+            break;
+
+        case ROUND_ACTIVE:
+            for (int i = 0; i < duckIndices.size(); i++) {
+                ducks[duckIndices[i]].updatePos();
+            }
+            break;
+
+        case ROUND_DONE:
+            msg = "GAME OVER";
+            notifyMsg = true;
+            instructionMenuVisible = true;
+            break;
+
+        default:
+            break;
+    }
+}
+
+void fire() {
+    int tempX = cursorX;
+    int tempY = cursorY;
+    //cout << "Cursor x, y: " << tempX << ", " << tempY << endl;
+    for (int i = 0; i < duckIndices.size(); i++) {
+        int a = duckIndices[i];
+        //cout << "Duck["<< i+1 << "] x, y: " << ducks[a].pos.x << ", " << ducks[a].pos.y << endl;
+        if (ducks[a].isHit(tempX, tempY)) {
+            //cout << "Duck[" << i+1 << "] is hit!" << endl;
+            ducks[a].alive = false;
+            score++;
+        }
+    }
+}
+
+void drawDucks() {
+    if (gameState == ROUND_ACTIVE)
+        for (int i = 0; i < duckIndices.size(); i++) {
+            ducks[duckIndices[i]].draw();;
+        }
 }
 
 void drawCursor() {
@@ -121,6 +186,7 @@ void showInstructions() {
     drawBitmapText("Instructions:\n"
         "  q - Quit simulation\n"
         "  i - Toggle Instructions\n"
+        "  r - Restart Game\n"
         "  d - Toggle Debugging Information", 10, HEIGHT-50, 0);
 }
 
@@ -132,6 +198,7 @@ void showDebugInfo() {
     ss << "Debugging Info: " << endl;
     ss << "  Cursor X: " << cursorX << endl;
     ss << "  Cursor Y: " << cursorY << endl;
+    ss << "  Duck Count: " << duckIndices.size() << endl;
 
     debugText = ss.str();
 
@@ -141,4 +208,51 @@ void showDebugInfo() {
 void updateCursorCoords(int x, int y) {
     cursorX = x;
     cursorY = CURSOR_YMAX-y;
+}
+
+void chooseRandomDucks(int n) {
+    duckIndices.clear();
+    while (duckIndices.size() < n) {
+        int x = rand() % MAX_DUCK_CNT;
+        if (duckIndices.size() != 0 && find(duckIndices.begin(), duckIndices.end(), x) == duckIndices.end())
+            continue;
+        duckIndices.push_back(x);
+    }
+}
+
+void notifyGame(int val) {
+    switch (val) {
+        case 0:                                 // Show "READY"
+            notifyMsg = true;
+            msg = "Ready";
+            glutTimerFunc(1000, notifyGame, 1);
+            break;
+
+        case 1:
+            msg = "3";
+            glutTimerFunc(1000, notifyGame, 2);
+            break;
+
+        case 2:
+            msg = "2";
+            glutTimerFunc(1000, notifyGame, 3);
+            break;
+
+        case 3:
+            msg = "1";
+            glutTimerFunc(1000, notifyGame, 4);
+            break;
+
+        case 4:
+            msg = "GO";
+            glutTimerFunc(1000, notifyGame, 5);
+            break;
+
+        case 5:
+            notifyMsg = false;
+            gameState = ROUND_ACTIVE;
+
+        default:
+            break;
+    }
 }

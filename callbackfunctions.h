@@ -15,4 +15,6 @@ void mouseClick(int button, int state, int x, int y);
 
 void setCursor(int x, int y);
 
+void timerFunc(int n);
+
 #endif //CALLBACKFUNCS_H
