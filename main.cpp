@@ -2,6 +2,7 @@
 #include <GL/freeglut.h>
 #include "definations.h"
 #include "callbackfunctions.h"
+#include "game.h"
 
 using namespace std;
 
@@ -35,6 +36,6 @@ int main(int argc, char **argv) {
 void init() {
 
     glEnable(GL_DEPTH_TEST);
-
     glClearColor(0, 0, 0, 0);
+    initGame();
 }

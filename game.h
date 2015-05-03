@@ -7,6 +7,7 @@ extern AppState appState;
 extern bool instructionMenuVisible;
 extern bool debugInfoVisible;
 
+void initGame();
 void startScreen();
 void gameScreen();
 void updateCursorCoords(int x, int y);

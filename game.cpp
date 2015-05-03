@@ -10,9 +10,26 @@ bool instructionMenuVisible = true;
 bool debugInfoVisible = false;
 int cursorX, cursorY;
 
+int duckCount = INITIAL_DUCK_CNT;
+float duckInitYPos[MAX_DUCK_CNT];
+vec2f duckPos[MAX_DUCK_CNT];
+float duckSlope[MAX_DUCK_CNT];
+
 void showInstructions();
 void showDebugInfo();
 void drawBackground();
+
+void initGame() {
+    for (int i = 0; i < MAX_DUCK_CNT; i++) {
+        // Generate random slope
+        duckSlope[i] =  ((float) rand() / (RAND_MAX));
+
+        // Random initial y pos
+        duckInitYPos[i] = (rand() % 300) + 100;
+        duckPos[i].x = 0;
+        duckPos[i].y = duckInitYPos[i];
+    }
+}
 
 void startScreen() {
 
@@ -30,6 +47,8 @@ void startScreen() {
 void gameScreen() {
 
     drawBackground();
+
+    drawDucks();
 
     if (debugInfoVisible)
         showDebugInfo();
