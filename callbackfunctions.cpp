@@ -11,7 +11,7 @@ void display() {
     if (appState == START_SCREEN) {
         startScreen();
     } else if (appState == GAME_SCREEN) {
-        simulationScreen();
+        gameScreen();
     }
 
     glFlush();

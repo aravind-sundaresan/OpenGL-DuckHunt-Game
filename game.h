@@ -8,7 +8,7 @@ extern bool instructionMenuVisible;
 extern bool debugInfoVisible;
 
 void startScreen();
-void simulationScreen();
+void gameScreen();
 void updateCursorCoords(int x, int y);
 
 #endif //GAME_H

@@ -12,6 +12,7 @@ int cursorX, cursorY;
 
 void showInstructions();
 void showDebugInfo();
+void drawBackground();
 
 void startScreen() {
 
@@ -26,12 +27,19 @@ void startScreen() {
 
 }
 
-void simulationScreen() {
+void gameScreen() {
+
+    drawBackground();
+
     if (debugInfoVisible)
         showDebugInfo();
 
     if (instructionMenuVisible)
         showInstructions();
+}
+
+void drawBackground() {
+
 }
 
 void showInstructions() {
