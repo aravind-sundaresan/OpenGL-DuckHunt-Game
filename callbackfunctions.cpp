@@ -3,7 +3,7 @@
 #include "game.h"
 
 void display() {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -22,10 +22,7 @@ void reshape(int w, int h) {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    if (w <= h)
-        gluOrtho2D(XMIN, XMAX, YMIN * (GLfloat) h / (GLfloat) w, YMAX * (GLfloat) h / (GLfloat) w);
-    else
-        gluOrtho2D(XMIN * (GLfloat) w / (GLfloat) h, XMAX * (GLfloat) w / (GLfloat) h, YMIN, YMAX);
+    glOrtho(0, WIDTH, 0, HEIGHT, 0, 1);
     glMatrixMode(GL_MODELVIEW);
 }
 

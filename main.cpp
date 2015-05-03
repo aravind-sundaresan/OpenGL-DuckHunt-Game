@@ -10,7 +10,7 @@ void init();
 int main(int argc, char **argv) {
 
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowPosition(0, 0);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("OpenGL-DuckHunt");
@@ -29,5 +29,8 @@ int main(int argc, char **argv) {
 }
 
 void init() {
+
+    glEnable(GL_DEPTH_TEST);
+
     glClearColor(0, 0, 0, 0);
 }
