@@ -8,6 +8,7 @@
 #include "duck.h"
 #include <GL/freeglut.h>
 #include <unistd.h>
+#include <SOIL/SOIL.h>
 
 using namespace std;
 
@@ -23,6 +24,7 @@ string msg;
 float gameSpeed;
 int duckCount;
 int gameLevel;
+GLuint duckTexture;
 
 vector<int> duckIndices;
 
@@ -38,6 +40,19 @@ void chooseRandomDucks(int n);
 void initializeAllDucks();
 
 void initGame() {
+
+    duckTexture = SOIL_load_OGL_texture
+                    (
+                        "images/duck.jpg",
+                        SOIL_LOAD_AUTO,
+                        SOIL_CREATE_NEW_ID,
+                        SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+                    );
+    //glActiveTexture(duckTexture);
+    // check for an error during the load process
+    if(duckTexture == 0)
+        cout << "SOIL loading error: " << SOIL_last_result() << endl;
+
     duckCount = INITIAL_DUCK_CNT;
     gameLevel = 1;
     gameSpeed = 1.0f;
@@ -47,7 +62,6 @@ void initGame() {
 }
 
 void initRound() {
-    cout << "Inside Init round\n";
     for (int i = 0; i < MAX_DUCK_CNT; i++) {
         ducks[i].alive = true;
         ducks[i].flewAway = false;
@@ -79,6 +93,19 @@ void startScreen() {
     drawStrokeText("Press Esc to Quit", WIDTH/1.8, HEIGHT/3.4, 0, FONT_SIZE_SMALL);
     drawStrokeText("By:\n\tARAVIND SUNDARESAN - 1PE12CS022\n\tG ARUN KUMAR - 1PE12CS048",
      WIDTH/2, HEIGHT/7, 0, FONT_SIZE_SMALL);
+
+    glEnable(GL_TEXTURE_2D);
+    glBegin(GL_QUADS);
+        glTexCoord2d(0, 0);
+        glVertex2d(0, 0);
+        glTexCoord2d(1, 0);
+        glVertex2d(WIDTH, 0);
+        glTexCoord2d(1, 1);
+        glVertex2d(WIDTH, HEIGHT);
+        glTexCoord2d(0, 1);
+        glVertex2d(0, HEIGHT);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
 
 }
 
@@ -214,10 +241,12 @@ void fire() {
 }
 
 void drawDucks() {
+    glEnable(GL_TEXTURE_2D);
     if (gameState == ROUND_ACTIVE | gameState == ROUND_OVER)
         for (int i = 0; i < duckIndices.size(); i++) {
             ducks[duckIndices[i]].draw();;
         }
+    glDisable(GL_TEXTURE_2D);
 }
 
 void drawCursor() {
