@@ -18,8 +18,8 @@
 #define INITIAL_DUCK_CNT    2
 #define MAX_DUCK_CNT        20
 
-#define DUCK_XSIZE      30
-#define DUCK_YSIZE      20
+#define DUCK_XSIZE      50
+#define DUCK_YSIZE      30
 
 typedef enum {
     START_SCREEN,

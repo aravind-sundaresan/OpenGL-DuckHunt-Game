@@ -11,6 +11,9 @@ void Duck::draw() {
     // Only draw the duck if it's still on the screen
     if (!flewAway) {
         //glPushAttrib(GL_CURRENT_BIT);
+        glPushMatrix();
+//        if (!alive)
+//            glRotatef(90, 0, 0, 1);
         glBegin(GL_QUADS);
             //if (alive)
                 //glColor3f(0.5, 0.35, 0.05);
@@ -25,6 +28,7 @@ void Duck::draw() {
             glTexCoord2d(1, 0);
             glVertex2f (pos.x + DUCK_XSIZE/2, pos.y - DUCK_YSIZE/2);
         glEnd();
+        glPopMatrix();
         //glPopAttrib();
     }
 }
